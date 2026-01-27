@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { DetailedResult } from "../contexts/DetailedResultsContext.types";
+import ResultCard from "./ResultCard";
 
 interface ResultsListProps {
   detailedResults: DetailedResult[];
@@ -13,16 +14,19 @@ export function ResultList({
   setSelectedResultId,
 }: ResultsListProps) {
   return (
-    <ul className="flex flex-col px-4 items-center">
-      {detailedResults.map(({ result, biomarker }) => (
+    <ul className="my-1 flex flex-col items-stretch gap-4 px-4">
+      {detailedResults.map((detailedResult) => (
         <li
-          key={result.id}
+          key={detailedResult.result.id}
           onClick={() => {
-            setSelectedResultId(result.id);
+            setSelectedResultId(detailedResult.result.id);
           }}
-          className={selectedResultId === result.id ? "bg-yellow-200" : ""}
+          className="flex justify-center"
         >
-          {`id: ${result.id} - bname: ${biomarker?.name} - bcat: ${biomarker?.category} - date: ${result.sampledAt}`}
+          <ResultCard
+            {...{ detailedResult }}
+            isSelected={selectedResultId === detailedResult.result.id}
+          />
         </li>
       ))}
     </ul>

@@ -1,0 +1,53 @@
+import type { DetailedResult } from "../contexts/DetailedResultsContext.types";
+
+interface ResultCardProps {
+  detailedResult: DetailedResult;
+  isSelected: boolean;
+}
+
+export default function ResultCard({
+  detailedResult,
+  isSelected,
+}: ResultCardProps) {
+  const { result, biomarker } = detailedResult;
+
+  return (
+    <button className={`w-full sm:max-w-2xl rounded-2xl p-4 cursor-pointer transition-all
+                        ${isSelected ? "bg-primary-100" : "bg-secondary-100" }`}>
+      <article
+        className={`grid items-center gap-x-6 gap-y-1
+                    grid-flow-col grid-cols-[auto_auto] grid-rows-[auto_auto_auto]
+                    sm:grid-cols-[2fr_1fr_1fr] sm:grid-rows-[auto_auto]`}
+      >
+        {/* biomarker name */}
+        <h1 className="order-2 tracking-wider font-semibold text-lg justify-self-start">
+          {biomarker ? biomarker.name : result.biomarkerId}
+        </h1>
+        {/* category */}
+        <p className="order-1 justify-self-start text-sm font-semibold tracking-wider text-gray-600 uppercase">
+          {biomarker && biomarker.category}
+        </p>
+        {/* measurement */}
+        <p className="order-3 justify-self-start sm:row-start-2">
+          <span className="font-semibold text-2xl mr-1">{result.value}</span>
+          <span className="text-sm tracking-wide font-semibold text-gray-600 justify-self-start">
+            {biomarker && biomarker.standardUnit}
+          </span>
+        </p>
+        {/* evaluation */}
+        <p className="order-5 sm:order-6 justify-self-end row-start-2">
+          {"RANGE CHECK"}
+        </p>
+        {/* reference range */}
+        <p className="order-6 sm:order-5 text-sm tracking-wide text-gray-600 justify-self-end">
+          {biomarker && (
+            <>
+              <span className="mr-1">Range:</span>
+              <span>{`${biomarker.referenceRange.low} - ${biomarker.referenceRange.high}`}</span>
+            </>
+          )}
+        </p>
+      </article>
+    </button>
+  );
+}

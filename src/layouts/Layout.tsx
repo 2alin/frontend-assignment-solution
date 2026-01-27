@@ -3,7 +3,7 @@ import logoPath from "../assets/app-logo.svg";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className="flex h-dvh w-dvw flex-col overflow-hidden">
+    <div className="flex h-dvh w-dvw flex-col">
       <header className="flex h-12 items-center justify-center   py-2  text-3xl font-bold text-secondary-600">
         <h1 className="flex gap-2 items-center">
           <span>
