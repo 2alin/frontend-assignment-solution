@@ -5,9 +5,16 @@ import ListSection from "../sections/ListSection";
 import type { FetchState } from "./ResultsPage.types";
 import LoadingSection from "../sections/LoadingSection";
 import ErrorSection from "../sections/ErrorSection";
+import type { DetailedResultMap } from "../contexts/DetailedResultsContext.types";
+import {
+  createDetailedResultsMap,
+  DetailedResultsContext,
+} from "../contexts/DetailedResultsContext";
 
 export default function ResultsPage() {
   const [fetchState, setFetchState] = useState<FetchState>("idle");
+  const [detailedResultsMap, setDetailedResultsMap] =
+    useState<DetailedResultMap | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,8 +25,10 @@ export default function ResultsPage() {
           fetchResults(),
           fetchBiomarkers(),
         ]);
-        console.log("results: ", results);
-        console.log("biomarkers", biomarkers);
+
+        const newMap = createDetailedResultsMap(results, biomarkers);
+        setDetailedResultsMap(newMap);
+
         setFetchState("success");
       } catch (err) {
         console.error("Error while fetching data: ", err);
@@ -45,9 +54,9 @@ export default function ResultsPage() {
   }
 
   return (
-    <>
+    <DetailedResultsContext value={detailedResultsMap}>
       <ListSection />
-    </>
+    </DetailedResultsContext>
   );
 }
 
