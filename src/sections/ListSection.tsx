@@ -6,6 +6,7 @@ import type {
 } from "../contexts/DetailedResultsContext.types";
 import type { CategorySelectorData } from "../components/CategorySelectorList.types";
 import CategorySelectorList from "../components/CategorySelectorList";
+import { ResultList } from "../components/ResultList";
 
 export default function ListSection() {
   const detailedResultsMap = useContext(DetailedResultsContext);
@@ -60,18 +61,18 @@ export default function ListSection() {
       {!filteredDetails.length ? (
         <p>No results found</p>
       ) : (
-        <ul className="grow">
-          {filteredDetails.map(({ result, biomarker }) => (
-            <li key={result.id}>
-              {`id: ${result.id} - bname: ${biomarker?.name} - bcat: ${biomarker?.category}`}
-            </li>
-          ))}
-        </ul>
+        <ResultList detailedResults={filteredDetails} />
       )}
     </section>
   );
 }
 
+/**
+ * Gets the required data to create a list of category selectors
+ *
+ * @param detailedResultsMap Map with detailed data per clinical result
+ * @returns A list of required data to create a category selector
+ */
 function getCategorySelectorDataList(
   detailedResultsMap: DetailedResultMap,
 ): CategorySelectorData[] {
