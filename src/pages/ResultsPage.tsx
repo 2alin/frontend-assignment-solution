@@ -10,11 +10,14 @@ import {
   createDetailedResultsMap,
   DetailedResultsContext,
 } from "../contexts/DetailedResultsContext";
+import DetailsSection from "../sections/DetailsSection";
 
 export default function ResultsPage() {
   const [fetchState, setFetchState] = useState<FetchState>("idle");
   const [detailedResultsMap, setDetailedResultsMap] =
     useState<DetailedResultMap | null>(null);
+
+  const [selectedResultId, setSelectedResultId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +58,8 @@ export default function ResultsPage() {
 
   return (
     <DetailedResultsContext value={detailedResultsMap}>
-      <ListSection />
+      <ListSection {...{ selectedResultId, setSelectedResultId }} />
+      <DetailsSection {...{ selectedResultId, setSelectedResultId }} />
     </DetailedResultsContext>
   );
 }

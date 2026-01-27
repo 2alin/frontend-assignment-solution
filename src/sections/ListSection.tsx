@@ -1,4 +1,10 @@
-import { useContext, useState, type ChangeEvent } from "react";
+import {
+  useContext,
+  useState,
+  type ChangeEvent,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { DetailedResultsContext } from "../contexts/DetailedResultsContext";
 import type {
   DetailedResult,
@@ -8,7 +14,15 @@ import type { CategorySelectorData } from "../components/CategorySelectorList.ty
 import CategorySelectorList from "../components/CategorySelectorList";
 import { ResultList } from "../components/ResultList";
 
-export default function ListSection() {
+interface ListSectionProps {
+  selectedResultId: string | null;
+  setSelectedResultId: Dispatch<SetStateAction<string | null>>;
+}
+
+export default function ListSection({
+  selectedResultId,
+  setSelectedResultId,
+}: ListSectionProps) {
   const detailedResultsMap = useContext(DetailedResultsContext);
 
   const detailedResults = detailedResultsMap
@@ -27,6 +41,8 @@ export default function ListSection() {
     getCategorySelectorDataList(detailedResultsMap);
 
   function handleCategoryChange(event: ChangeEvent<HTMLInputElement>) {
+    setSelectedResultId(null);
+
     const newSelectedCategory = event.target.value;
     setSelectedCategory(newSelectedCategory);
 
@@ -48,7 +64,7 @@ export default function ListSection() {
   }
 
   return (
-    <section>
+    <section className="flex flex-1 flex-col bg-pink-300 overflow-auto">
       <form className="shrink-0 overflow-auto">
         <CategorySelectorList
           name="category"
@@ -61,7 +77,10 @@ export default function ListSection() {
       {!filteredDetails.length ? (
         <p>No results found</p>
       ) : (
-        <ResultList detailedResults={filteredDetails} />
+        <ResultList
+          detailedResults={filteredDetails}
+          {...{ selectedResultId, setSelectedResultId }}
+        />
       )}
     </section>
   );
