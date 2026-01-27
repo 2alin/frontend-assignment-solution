@@ -24,13 +24,13 @@ export default function OptionSelector({
         className={
           variant === "primary"
             ? `
-              inline-block rounded-full px-4 py-2 font-medium capitalize shadow-md cursor-pointer
+              inline-block cursor-pointer rounded-full px-4 py-2 font-medium capitalize shadow-md select-none
               has-focus-visible:outline-4  has-focus-visible:outline-green-400
               ${checked ? "bg-blue-800 text-white" : "bg-white outline-1 outline-gray-400"}
               `
             : variant === "secondary"
               ? `
-                inline-block capitalize font-normal px-1 py-0.5 cursor-pointer border-b-2 
+                inline-block cursor-pointer border-b-2 px-1 py-0.5 font-normal capitalize select-none
                 has-focus-visible:outline-4 has-focus-visible:outline-green-400
                 ${checked ? "border-black" : "border-transparent"}
                 `
