@@ -13,7 +13,7 @@ export function ResultList({
   setSelectedResultId,
 }: ResultsListProps) {
   return (
-    <ul className="grow">
+    <ul className="flex flex-col px-4 items-center">
       {detailedResults.map(({ result, biomarker }) => (
         <li
           key={result.id}

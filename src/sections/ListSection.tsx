@@ -123,7 +123,7 @@ export default function ListSection({
 
   return (
     <section className="flex flex-1 flex-col bg-pink-300 overflow-auto">
-      <form className="shrink-0 overflow-auto">
+      <form className="flex shrink-0 overflow-auto justify-center">
         <CategorySelectorList
           name="category"
           selectedCategory={selectedCategory}
@@ -135,9 +135,9 @@ export default function ListSection({
       {!filteredDetails.length ? (
         <p>No results found</p>
       ) : (
-        <div>
+        <div className="flex flex-col overflow-auto">
           <form
-            className="flex items-center"
+            className="flex items-center justify-center"
             onSubmit={(e) => e.preventDefault()}
           >
             <SortSelectorList
