@@ -122,7 +122,7 @@ export default function ListSection({
   }
 
   return (
-    <section className="flex flex-1 flex-col bg-pink-300 overflow-auto">
+    <section className="flex flex-1 flex-col overflow-auto">
       <form className="flex shrink-0 overflow-auto justify-center">
         <CategorySelectorList
           name="category"

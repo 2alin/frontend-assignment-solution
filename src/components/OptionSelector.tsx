@@ -25,14 +25,14 @@ export default function OptionSelector({
           variant === "primary"
             ? `
               inline-block cursor-pointer rounded-full px-4 py-1 font-medium capitalize shadow-md select-none
-              has-focus-visible:outline-4  has-focus-visible:outline-green-400
-              ${checked ? "bg-blue-800 text-white" : "bg-white outline-1 outline-gray-400"}
+              has-focus-visible:outline-4  has-focus-visible:outline-secondary-800
+              ${checked ? "bg-primary-300" : "bg-white outline-1 outline-secondary-600"}
               `
             : variant === "secondary"
               ? `
-                inline-block cursor-pointer border-b-2 px-1 font-normal capitalize select-none
-                has-focus-visible:outline-4 has-focus-visible:outline-green-400
-                ${checked ? "border-black" : "border-transparent"}
+                inline-block cursor-pointer border-b-2 px-1 font-medium capitalize select-none
+                has-focus-visible:outline-4 has-focus-visible:outline-secondary-800
+                ${checked ? "border-secondary-600" : "border-transparent"}
                 `
               : ""
         }
