@@ -11,8 +11,9 @@ import type {
   DetailedResultMap,
 } from "../contexts/DetailedResultsContext.types";
 import type { CategorySelectorData } from "../components/CategorySelectorList.types";
-import CategorySelectorList from "../components/CategorySelectorList";
+
 import { ResultList } from "../components/ResultList";
+import CategorySelectorList from "../components/CategorySelectorList";
 
 interface ListSectionProps {
   selectedResultId: string | null;

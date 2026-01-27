@@ -1,5 +1,5 @@
 import { type ChangeEventHandler } from "react";
-import CategorySelector from "./CategorySelector";
+import OptionSelector from "./OptionSelector";
 import type { CategorySelectorData } from "./CategorySelectorList.types";
 
 interface CategorySelectorListProps {
@@ -22,14 +22,15 @@ export default function CategorySelectorList({
       {label && <legend>{label}</legend>}
 
       {selectorDataList.map(({ value, text }) => (
-        <CategorySelector
+        <OptionSelector
           key={value}
           name={name}
           value={value}
           text={text}
           checked={selectedCategory === value}
+          variant="primary"
           onChange={onChange}
-        ></CategorySelector>
+        ></OptionSelector>
       ))}
     </fieldset>
   );
