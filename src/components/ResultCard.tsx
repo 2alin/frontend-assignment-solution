@@ -1,4 +1,5 @@
 import type { DetailedResult } from "../contexts/DetailedResultsContext.types";
+import StatusBadge from "./StatusBadge";
 
 interface ResultCardProps {
   detailedResult: DetailedResult;
@@ -12,8 +13,10 @@ export default function ResultCard({
   const { result, biomarker } = detailedResult;
 
   return (
-    <button className={`w-full sm:max-w-2xl rounded-2xl p-4 cursor-pointer transition-all
-                        ${isSelected ? "bg-primary-100" : "bg-secondary-100" }`}>
+    <button
+      className={`w-full sm:max-w-2xl rounded-2xl p-4 cursor-pointer transition-all
+                        ${isSelected ? "bg-primary-100" : "bg-secondary-100"}`}
+    >
       <article
         className={`grid items-center gap-x-6 gap-y-1
                     grid-flow-col grid-cols-[auto_auto] grid-rows-[auto_auto_auto]
@@ -36,7 +39,12 @@ export default function ResultCard({
         </p>
         {/* evaluation */}
         <p className="order-5 sm:order-6 justify-self-end row-start-2">
-          {"RANGE CHECK"}
+          {biomarker && (
+            <StatusBadge
+              value={result.value}
+              range={biomarker.referenceRange}
+            />
+          )}
         </p>
         {/* reference range */}
         <p className="order-6 sm:order-5 text-sm tracking-wide text-gray-600 justify-self-end">

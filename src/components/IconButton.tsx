@@ -8,11 +8,6 @@ interface IconButtonProps {
 
 type IconType = "arrowDown" | "arrowUp";
 
-const icons: Record<IconType, string> = {
-  arrowDown: "/src/assets/arrow-down.svg",
-  arrowUp: "/src/assets/arrow-up.svg",
-};
-
 export default function IconButton({
   iconType,
   label,
@@ -25,7 +20,9 @@ export default function IconButton({
       className="flex rounded-full size-6 bg-secondary-500 cursor-pointer"
     >
       <span
-        className={`mask-[url(${icons[iconType]})] bg-white size-full mask-size-[100%]`}
+        className={` bg-white size-full mask-size-[100%]
+          ${iconType === "arrowDown" ? "mask-[url(./assets/arrow-down.svg)]" : "mask-[url(./assets/arrow-up.svg)]"}
+          `}
       ></span>
     </button>
   );
