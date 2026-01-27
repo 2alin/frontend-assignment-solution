@@ -1,6 +1,7 @@
 import { useContext, useState, type ChangeEvent } from "react";
 import { DetailedResultsContext } from "../contexts/DetailedResultsContext";
 import type {
+  DetailedResult,
   DetailedResultMap,
 } from "../contexts/DetailedResultsContext.types";
 import type { CategorySelectorData } from "../components/CategorySelectorList.types";
@@ -8,6 +9,13 @@ import CategorySelectorList from "../components/CategorySelectorList";
 
 export default function ListSection() {
   const detailedResultsMap = useContext(DetailedResultsContext);
+
+  const detailedResults = detailedResultsMap
+    ? [...detailedResultsMap.values()]
+    : [];
+  const [filteredDetails, setFilteredDetails] =
+    useState<DetailedResult[]>(detailedResults);
+
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   if (!detailedResultsMap) {
@@ -20,6 +28,22 @@ export default function ListSection() {
   function handleCategoryChange(event: ChangeEvent<HTMLInputElement>) {
     const newSelectedCategory = event.target.value;
     setSelectedCategory(newSelectedCategory);
+
+    if (newSelectedCategory === "all") {
+      setFilteredDetails(detailedResults);
+      return;
+    }
+
+    const newFilteredDetails = detailedResults.filter(({ biomarker }) => {
+      if (!biomarker) {
+        return false;
+      }
+
+      const category = biomarker.category.trim().toLowerCase();
+      return category === newSelectedCategory;
+    });
+
+    setFilteredDetails(newFilteredDetails);
   }
 
   return (
@@ -32,8 +56,18 @@ export default function ListSection() {
           onChange={handleCategoryChange}
         ></CategorySelectorList>
       </form>
-      <p>List Section</p>
-      <p>Category Selected: {selectedCategory}</p>
+
+      {!filteredDetails.length ? (
+        <p>No results found</p>
+      ) : (
+        <ul className="grow">
+          {filteredDetails.map(({ result, biomarker }) => (
+            <li key={result.id}>
+              {`id: ${result.id} - bname: ${biomarker?.name} - bcat: ${biomarker?.category}`}
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
