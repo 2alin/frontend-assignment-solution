@@ -30,9 +30,9 @@ export default function OptionSelector({
               `
             : variant === "secondary"
               ? `
-                inline-block cursor-pointer border-b-2 px-1 font-medium capitalize select-none
+                inline-block cursor-pointer border-b-3 px-1 font-medium capitalize select-none
                 has-focus-visible:outline-4 has-focus-visible:outline-secondary-800
-                ${checked ? "border-secondary-600" : "border-transparent"}
+                ${checked ? "border-secondary-500" : "border-transparent"}
                 `
               : ""
         }

@@ -10,12 +10,14 @@ import type {
   DetailedResult,
   DetailedResultMap,
 } from "../contexts/DetailedResultsContext.types";
-import type { CategorySelectorData } from "../components/CategorySelectorList.types";
 
 import { ResultList } from "../components/ResultList";
 import CategorySelectorList from "../components/CategorySelectorList";
+import type { CategorySelectorData } from "../components/CategorySelectorList.types";
 import SortSelectorList from "../components/SortSelectorList";
 import type { SortType } from "../components/SortSelectorList.types";
+
+import IconButton from "../components/IconButton";
 
 interface ListSectionProps {
   selectedResultId: string | null;
@@ -137,7 +139,7 @@ export default function ListSection({
       ) : (
         <div className="flex flex-col overflow-auto">
           <form
-            className="flex items-center justify-center"
+            className="flex items-center justify-center my-1"
             onSubmit={(e) => e.preventDefault()}
           >
             <SortSelectorList
@@ -147,9 +149,11 @@ export default function ListSection({
             />
 
             <div>
-              <button onClick={toggleAscending}>
-                {isSortAscending ? "Ascending" : "Descending"}
-              </button>
+              <IconButton
+                label="Toggle sort order"
+                iconType={isSortAscending ? "arrowUp" : "arrowDown"}
+                onClick={toggleAscending}
+              />
             </div>
           </form>
 

@@ -17,7 +17,7 @@ export default function SortSelectorList({
 
   return (
     <div className="flex gap-4 px-4 py-2">
-      <span>Sort by:</span>
+      <span className="font-medium">Sort by:</span>
 
       {sortTypes.map((sortType) => (
         <OptionSelector
