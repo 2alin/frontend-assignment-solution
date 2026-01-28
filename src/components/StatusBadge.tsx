@@ -1,24 +1,18 @@
 import type { ReferenceRange } from "../api";
+import { getStatus } from "../utilities/biomarkerStatus";
+import type { StatusType } from "../utilities/biomarkerStatus.types";
 
 interface StatusBadgeProps {
   value: number;
   range: ReferenceRange;
 }
 
-type statusType = "low" | "normal" | "high";
 
 export default function StatusBadge({ value, range }: StatusBadgeProps) {
-  let status: statusType;
 
-  if (value < range.low) {
-    status = "low";
-  } else if (value > range.high) {
-    status = "high";
-  } else {
-    status = "normal";
-  }
+  const status = getStatus(value, range);
 
-  const bgVariant: Record<statusType, string> = {
+  const bgVariant: Record<StatusType, string> = {
     low: "bg-orange-600",
     high: "bg-red-600",
     normal: "bg-secondary-600",
