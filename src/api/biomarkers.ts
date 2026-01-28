@@ -10,6 +10,11 @@ import { wait } from "./utilities";
  * @returns A list of biomarkers data
  */
 export async function getAll(): Promise<Biomarker[]> {
+  if (config.simulateError) {
+    console.error("Failed fetching all biomarkers due to simulated error");
+    throw new Error("Simulated error");
+  }
+
   try {
     const response = await fetch(config.biomarkersDataPath);
     const biomarkers = (await response.json()) as Biomarker[];
