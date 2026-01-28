@@ -58,16 +58,16 @@ export function DetailsCard({ detailedResult }: DetailsCardProps) {
  * @returns A text intepration of the clinical results.
  */
 function getInterpration(result: Result, biomarker: Biomarker) {
-  const advises: Record<StatusType, string> = {
+  const advices: Record<StatusType, string> = {
     high: "We suggest you to improve your lifestyle and visit a doctor",
-    low: "Please visit a doctor as you may need professional advise",
+    low: "Please visit a doctor as you may need professional advice",
     normal:
       "That is great news! Your current lifestyle is having good effects for this biomarker",
   };
 
   const status = getStatus(result.value, biomarker.referenceRange);
 
-  const interpration = `Your result was ${status}. ${advises[status]}.`;
+  const interpration = `Your result was ${status}. ${advices[status]}.`;
 
   return interpration;
 }
