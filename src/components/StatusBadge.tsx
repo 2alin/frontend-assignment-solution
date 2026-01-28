@@ -19,7 +19,7 @@ export default function StatusBadge({ value, range }: StatusBadgeProps) {
   };
 
   return (
-    <div
+    <span
       className={`flex justify-center items-center gap-2 rounded-full px-4 py-1 text-white
                   ${bgVariant[status]}
                 `}
@@ -36,6 +36,6 @@ export default function StatusBadge({ value, range }: StatusBadgeProps) {
           `}
       ></span>
       <span className="capitalize font-semibold text-sm">{status}</span>
-    </div>
+    </span>
   );
 }
