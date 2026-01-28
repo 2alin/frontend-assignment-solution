@@ -19,6 +19,9 @@ export default function ResultsPage() {
 
   const [selectedResultId, setSelectedResultId] = useState<string | null>(null);
 
+  /**
+   * Initialization: fetch results and biomarkers data
+   */
   useEffect(() => {
     const fetchData = async () => {
       setFetchState("loading");

@@ -1,4 +1,10 @@
-import { useContext, type Dispatch, type SetStateAction } from "react";
+import {
+  useContext,
+  useEffect,
+  useRef,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { DetailedResultsContext } from "../contexts/DetailedResultsContext";
 import closeIcon from "../assets/arrow-right.svg";
 import { DetailsCard } from "../components/DetailsCard";
@@ -14,12 +20,26 @@ export default function DetailsSection({
   setSelectedResultId,
 }: DetailsSectionProps) {
   const detailedResultsMap = useContext(DetailedResultsContext);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   let detailedResult = null;
 
   if (detailedResultsMap && selectedResultId) {
     detailedResult = detailedResultsMap.get(selectedResultId);
   }
+
+  /**
+   * Focus on close button when the section opens.
+   * Reasons:
+   *   - we would like inmediate interaction with the new opened section
+   *   - the close button is the first element from top to bottom
+   *   - it will allow us to close the section inmediately if we want
+   */
+  useEffect(() => {
+    if (closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, [selectedResultId]);
 
   function handleClose() {
     setSelectedResultId(null);
@@ -40,6 +60,7 @@ export default function DetailsSection({
                 : detailedResult.result.biomarkerId}
             </h1>
             <button
+              ref={closeButtonRef}
               aria-label="Close details section"
               className="size-7 rounded-full cursor-pointer mx-2"
               onClick={handleClose}
