@@ -27,7 +27,7 @@ export function NotesCard({ biomarker }: NotesCardProps) {
         newNote = "";
         setSyncState("syncing");
         try {
-          localStorage.setItem(biomarker.id, newNote);
+          storage.notes.set(biomarker.id, newNote);
           setSyncState("done");
         } catch (err) {
           console.error("Issue with local storage. Notes may not save.", err);
@@ -51,21 +51,25 @@ export function NotesCard({ biomarker }: NotesCardProps) {
 
     setNote(newNote);
 
-    // while user types, sync with storage exactly every second
-    setSyncState("syncing");
-    if (!syncTimeOutRef.current) {
-      syncTimeOutRef.current = setTimeout(() => {
-        try {
-          storage.notes.set(biomarker.id, note);
-          setSyncState("done");
-        } catch (err) {
-          console.error("Issue with local storage. Notes may not save.", err);
-          setSyncState("error");
-        }
+    // -----------------------------------------------------
+    // let's wait 300ms until the user stops typing to store
 
-        syncTimeOutRef.current = 0;
-      }, 1000);
+    setSyncState("syncing");
+    if (syncTimeOutRef.current) {
+      clearTimeout(syncTimeOutRef.current);
     }
+
+    syncTimeOutRef.current = setTimeout(() => {
+      try {
+        storage.notes.set(biomarker.id, newNote);
+        setSyncState("done");
+      } catch (err) {
+        console.error("Issue with local storage. Notes may not save.", err);
+        setSyncState("error");
+      }
+
+      syncTimeOutRef.current = 0;
+    }, 300);
   }
 
   return (
