@@ -16,16 +16,13 @@ export function ResultList({
   return (
     <ul className="my-1 flex flex-col items-stretch gap-4 px-4">
       {detailedResults.map((detailedResult) => (
-        <li
-          key={detailedResult.result.id}
-          onClick={() => {
-            setSelectedResultId(detailedResult.result.id);
-          }}
-          className="flex justify-center"
-        >
+        <li key={detailedResult.result.id} className="flex justify-center">
           <ResultCard
             {...{ detailedResult }}
             isSelected={selectedResultId === detailedResult.result.id}
+            onClick={() => {
+              setSelectedResultId(detailedResult.result.id);
+            }}
           />
         </li>
       ))}

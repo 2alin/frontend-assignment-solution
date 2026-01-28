@@ -1,19 +1,23 @@
+import type { MouseEventHandler } from "react";
 import type { DetailedResult } from "../contexts/DetailedResultsContext.types";
 import StatusBadge from "./StatusBadge";
 
 interface ResultCardProps {
   detailedResult: DetailedResult;
   isSelected: boolean;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export default function ResultCard({
   detailedResult,
   isSelected,
+  onClick,
 }: ResultCardProps) {
   const { result, biomarker } = detailedResult;
 
   return (
     <button
+      onClick={onClick}
       className={`w-full sm:max-w-2xl rounded-2xl p-4 cursor-pointer transition-all
                         ${isSelected ? "bg-primary-100" : "bg-secondary-100"}`}
     >
