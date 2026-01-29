@@ -48,11 +48,11 @@ export function DetailsCard({ detailedResult }: DetailsCardProps) {
           </p>
         </>
       )}
-      {/* Interpration */}
+      {/* Interpretation */}
       {biomarker && (
         <>
           <p className={fieldNameClass}>remarks:</p>
-          <p>{getInterpration(result, biomarker)}</p>
+          <p>{getInterpretation(result, biomarker)}</p>
         </>
       )}
     </article>
@@ -60,13 +60,13 @@ export function DetailsCard({ detailedResult }: DetailsCardProps) {
 }
 
 /**
- * Gets a simple interpreation of the biomarker results
+ * Gets a simple interpretation of the biomarker results
  *
  * @param result Clinical result data
  * @param biomarker Biomarker data
- * @returns A text intepration of the clinical results.
+ * @returns A text intepretation of the clinical results.
  */
-function getInterpration(result: Result, biomarker: Biomarker) {
+function getInterpretation(result: Result, biomarker: Biomarker) {
   const advices: Record<StatusType, string> = {
     high: "We suggest you to improve your lifestyle and visit a doctor",
     low: "Please visit a doctor as you may need professional advice",
@@ -76,7 +76,7 @@ function getInterpration(result: Result, biomarker: Biomarker) {
 
   const status = getStatus(result.value, biomarker.referenceRange);
 
-  const interpration = `Your result was ${status}. ${advices[status]}.`;
+  const interpretation = `Your result was ${status}. ${advices[status]}.`;
 
-  return interpration;
+  return interpretation;
 }
